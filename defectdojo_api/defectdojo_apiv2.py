@@ -1258,7 +1258,7 @@ class DefectDojoAPIv2(object):
         if limit:
             params['limit'] = limit
 
-        if username:
+        if product_id:
             params['product'] = product_id
 	
         if category_type:
