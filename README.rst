@@ -1,4 +1,4 @@
-THIS API WRAPPER IS NO LONGER MAINTAINED. IT MAY OR MAY NOT WORK
+THIS API WRAPPER IS MANTAINED FOR MERABYTES DOJO USE ONLY.
 ========
 
 See `clients and api wrappers in the docs <https://defectdojo.github.io/django-DefectDojo/integrations/api-v2-docs/#clients--api-wrappers>`_ for alternatives
