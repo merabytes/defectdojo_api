@@ -1246,6 +1246,23 @@ class DefectDojoAPIv2(object):
 
         return self._request('GET', 'product_types/', params)
 
+    ###### Benchmarks API #######
+    def list_benchmarks(self, product_id=None, limit=20):
+        """Retrieves all the benchmarks.
+
+        :param username: Search by product.
+        :param limit: Number of records to return.
+
+        """
+        params  = {}
+        if limit:
+            params['limit'] = limit
+
+        if username:
+            params['product'] = product_id
+
+        return self._request('GET', 'benchmarks/', params)
+
     # Utility
 
     @staticmethod
