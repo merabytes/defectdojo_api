@@ -364,6 +364,14 @@ class DefectDojoAPIv2(object):
         """
         return self._request('GET', 'products/' + str(product_id) + '/')
 
+    def get_endpoint(self, endpoint_id):
+        """Retrieves an endpoint using the given endpoint id.
+
+        :param endpoint_id: Endpoint identification.
+
+        """
+        return self._request('GET', 'endpoints/' + str(endpoint_id) + '/')
+
     def create_product(self, name, description, prod_type):
         """Creates a product with the given properties.
 
@@ -381,7 +389,7 @@ class DefectDojoAPIv2(object):
 
         return self._request('POST', 'products/', data=data)
 
-    def create_product(self, name, description, prod_type):
+    def create_products_type(self, name, description, critical_product=False, key_product=False):
         """Creates a product with the given properties.
 
         :param name: Product name.
@@ -391,12 +399,13 @@ class DefectDojoAPIv2(object):
         """
 
         data = {
-            'name': name,
-            'description': description,
-            'prod_type': prod_type
+            "name": name,
+            "description": description,
+            "critical_product": critical_product,
+            "key_product": key_product
         }
 
-        return self._request('POST', 'products/', data=data)
+        return self._request('POST', 'product_types/', data=data)
 
 
     def set_product(self, product_id, name=None, description=None, prod_type=None):
@@ -455,6 +464,22 @@ class DefectDojoAPIv2(object):
 
         """
         return self._request('GET', 'tests/' + str(test_id) + '/')
+    
+    ###### Technologies API #######
+    def list_technologies(self, product=None, icon=None):
+        """Retrieves all the tech.
+
+        :param product: Search by product id.
+
+        """
+
+        params  = {}
+        if product:
+            params['product'] = product
+        if icon:
+            params['icon'] = icon
+
+        return self._request('GET', 'technologies/', params)
 
     def create_test(self, engagement_id, test_type, environment, target_start,
                     target_end, percent_complete=None, lead=None, title=None,
@@ -703,7 +728,7 @@ class DefectDojoAPIv2(object):
 
     def set_finding(self, finding_id, product_id=None, engagement_id=None, test_id=None, title=None, description=None, severity=None, build=None,
         cwe=None, date=None, user_id=None, impact=None, active=None, verified=None,
-        mitigation=None, references=None, numerical_severity=None):
+        mitigation=None, references=None, numerical_severity=None, false_p=None, under_review=None):
 
         """Updates a finding with the given properties.
 
@@ -779,6 +804,10 @@ class DefectDojoAPIv2(object):
 
         if build:
             data['build_id'] = build
+        
+        data['false_p'] = True if false_p else False
+
+        data['under_review'] = True if under_review else False
 
         return self._request('PUT', 'findings/' + str(finding_id) + '/', data=data)
 
